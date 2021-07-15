@@ -22,7 +22,7 @@ func NewHook(client *Client, levels []logrus.Level) *Hook {
 }
 
 func (h *Hook) Fire(entry *logrus.Entry) error {
-	err := h.Client.Log(entry)
+	_, err := h.Client.Log(entry)
 	return err
 }
 

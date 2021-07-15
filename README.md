@@ -12,7 +12,7 @@ go get github.com/abrunner94/rusrelic
 
 ```golang
 // Specify the EU region with "EU" if necessary and your New Relic License Key
-rusrelicClient := rusrelic.NewClient("US", "NEW_RELIC_LICENSE_KEY")
+rusrelicClient, _ := rusrelic.NewClient("US", "NEW_RELIC_LICENSE_KEY")
 rusrelicHook := rusrelic.NewHook(rusrelicClient, rusrelic.DefaultLevels)
 
 // Add the hook to logrus

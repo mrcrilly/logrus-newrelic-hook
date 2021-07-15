@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"runtime"
 	"time"
 
 	"github.com/sirupsen/logrus"
@@ -12,44 +13,50 @@ import (
 
 const requestTimeout = time.Second * 15
 
-type event struct {
-	Message  string       `json:"message"`
-	LogLevel logrus.Level `json:"logLevel"`
-}
+var (
+	EndpointGeneric = "https://log-api.newrelic.com/log/v1"
+	EndpointEU      = "https://log-api.eu.newrelic.com/log/v1"
+)
 
 type Client struct {
 	Region     string
 	LicenseKey string
 }
 
-func NewClient(region string, licenseKey string) *Client {
-	return &Client{Region: region, LicenseKey: licenseKey}
+type event struct {
+	Message string         `json:"Message"`
+	Level   logrus.Level   `json:"Level"`
+	Caller  *runtime.Frame `json:"Caller"`
+	Data    logrus.Fields  `json:"Data"`
 }
 
-func (c *Client) Log(entry *logrus.Entry) error {
-	logEvent := &event{
-		Message:  entry.Message,
-		LogLevel: entry.Level,
+func NewClient(region string, licenseKey string) (*Client, error) {
+	if licenseKey == "" {
+		return nil, fmt.Errorf("please specify a New Relic License Key")
 	}
+	return &Client{Region: region, LicenseKey: licenseKey}, nil
+}
 
-	for k, v := range entry.Data {
-		entry.Data[k] = v
+func (c *Client) Log(entry *logrus.Entry) (*event, error) {
+	evt := &event{
+		Message: entry.Message,
+		Level:   entry.Level,
+		Caller:  entry.Caller,
+		Data:    entry.Data,
 	}
-
-	json, err := json.Marshal(logEvent)
+	json, err := json.Marshal(evt)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	return c.request(json)
+	return evt, c.request(json)
 }
 
 func (c *Client) request(json []byte) error {
 	// Determine URL based on region provided
-	var url = "https://log-api.newrelic.com/log/v1"
-
+	var url = EndpointGeneric
 	if c.Region == "EU" {
-		url = "https://log-api.eu.newrelic.com/log/v1"
+		url = EndpointEU
 	}
 
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer(json))
