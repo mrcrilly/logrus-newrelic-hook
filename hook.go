@@ -1,4 +1,4 @@
-package newrelic
+package rusrelic
 
 import (
 	"github.com/sirupsen/logrus"
