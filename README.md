@@ -1,4 +1,4 @@
-# rusrelic
+# rusrelic [![Go Reference](https://pkg.go.dev/badge/github.com/abrunner94/rusrelic.svg)](https://pkg.go.dev/github.com/abrunner94/rusrelic)
 
 [Logrus](https://github.com/sirupsen/logrus) hook for the [New Relic Log API](https://docs.newrelic.com/docs/logs/log-management/log-api/introduction-log-api/).
 
