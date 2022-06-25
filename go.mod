@@ -1,4 +1,4 @@
-module github.com/abrunner94/rusrelic
+module github.com/mrcrilly/logrus-newrelic-hook
 
 go 1.16
 
