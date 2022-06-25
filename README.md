@@ -5,7 +5,7 @@
 ## Installation
 
 ```bash
-go get github.com/abrunner94/rusrelic
+go get github.com/mrcrilly/logrus-newrelic-hook
 ```
 
 ## Usage
