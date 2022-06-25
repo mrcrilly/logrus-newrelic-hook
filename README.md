@@ -1,4 +1,4 @@
-# rusrelic [![Go Reference](https://pkg.go.dev/badge/github.com/abrunner94/rusrelic.svg)](https://pkg.go.dev/github.com/abrunner94/rusrelic)
+# Logrus New Relic Hook
 
 [Logrus](https://github.com/sirupsen/logrus) hook for the [New Relic Log API](https://docs.newrelic.com/docs/logs/log-management/log-api/introduction-log-api/).
 
@@ -12,9 +12,13 @@ go get github.com/mrcrilly/logrus-newrelic-hook
 
 ```golang
 // Specify the EU region with "EU" if necessary and your New Relic License Key
-rusrelicClient, _ := rusrelic.NewClient("US", "NEW_RELIC_LICENSE_KEY")
-rusrelicHook := rusrelic.NewHook(rusrelicClient, rusrelic.DefaultLevels)
+newrelicHook, _ := logrusnewrelic.NewClient("US", "NEW_RELIC_LICENSE_KEY")
+newrelicHook := logrusnewrelic.NewHook(newrelicHook, logrusnewrelic.DefaultLevels)
 
 // Add the hook to logrus
-log.AddHook(rusrelicHook)
+log.AddHook(newrelicHook)
 ```
+
+## Why fork?
+
+I didn't want to rely on an external repository that could disappear at any time. And I didn't like the `rusreclic`.

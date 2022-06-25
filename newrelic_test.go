@@ -1,4 +1,4 @@
-package rusrelic
+package logrusnewrelic
 
 import (
 	"runtime"
