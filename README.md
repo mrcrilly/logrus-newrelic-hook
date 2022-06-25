@@ -12,8 +12,8 @@ go get github.com/mrcrilly/logrus-newrelic-hook
 
 ```golang
 // Specify the EU region with "EU" if necessary and your New Relic License Key
-newrelicHook, _ := logrusnewrelic.NewClient("US", "NEW_RELIC_LICENSE_KEY")
-newrelicHook := logrusnewrelic.NewHook(newrelicHook, logrusnewrelic.DefaultLevels)
+newrelicHookClient, _ := logrusnewrelic.NewClient("US", "NEW_RELIC_LICENSE_KEY")
+newrelicHook := logrusnewrelic.NewHook(newrelicHookClient, logrusnewrelic.DefaultLevels)
 
 // Add the hook to logrus
 log.AddHook(newrelicHook)
