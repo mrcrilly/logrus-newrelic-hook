@@ -24,10 +24,10 @@ type Client struct {
 }
 
 type event struct {
-	Message string         `json:"Message"`
-	Level   logrus.Level   `json:"Level"`
-	Caller  *runtime.Frame `json:"Caller"`
-	Data    logrus.Fields  `json:"Data"`
+	Message string         `json:"message"`
+	Level   logrus.Level   `json:"level"`
+	Caller  *runtime.Frame `json:"caller"`
+	Data    logrus.Fields  `json:"data"`
 }
 
 func NewClient(region string, licenseKey string) (*Client, error) {
